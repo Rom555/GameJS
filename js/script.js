@@ -4,14 +4,26 @@ const isNumber = function (num) {
   return !isNaN(parseInt(num)) && isFinite(num) && num !== "";
 };
 
+const playAgain = function (str) {
+  if (confirm(str + " Хотите сыграть еще?")) {
+    gameStart();
+  }
+};
+
 const gameStart = function () {
   let number = Math.ceil(Math.random() * 100 + 1);
+  let tryNumber = 10;
 
   const game = function (str) {
+    if (tryNumber === 0) {
+      playAgain("Попытки закончились.");
+      return;
+    }
+
     let userNumber = prompt(str);
 
     if (userNumber == null) {
-      alert("Игра окончена");
+      alert("Игра окончена.");
       return;
     }
 
@@ -23,13 +35,14 @@ const gameStart = function () {
     }
 
     userNumber = +userNumber;
+    tryNumber--;
 
     if (userNumber === number) {
-      alert("Поздравляю, Вы угадали!!!");
+      playAgain("Поздравляю, Вы угадали!!!");
     } else if (userNumber > number) {
-      game("Загаданное число меньше");
+      game("Загаданное число меньше. Осталось попыток " + tryNumber);
     } else if (userNumber < number) {
-      game("Загаданное число больше");
+      game("Загаданное число больше. Осталось попыток " + tryNumber);
     }
   };
 
