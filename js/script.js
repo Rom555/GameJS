@@ -22,7 +22,7 @@ const gameStart = function (number) {
 
     userNumber = +userNumber;
 
-    if (userNumber % 1 !== 0) {
+    if (!Number.isInteger(userNumber)) {
       game("Введи целое число!");
       return;
     }
@@ -36,9 +36,7 @@ const gameStart = function (number) {
     }
   };
 
-  return function (str) {
-    game(str);
-  };
+  return game;
 };
 
 let generatedNumber = Math.ceil(Math.random() * 100 + 1);
