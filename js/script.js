@@ -4,15 +4,16 @@ const isNumber = function (num) {
   return !isNaN(parseInt(num)) && isFinite(num) && num !== "";
 };
 
-const playAgain = function (str) {
-  if (confirm(str + " Хотите сыграть еще?")) {
-    gameStart();
-  }
+const generateNumber = function () {
+  return Math.ceil(Math.random() * 100 + 1);
 };
 
-const gameStart = function () {
-  let number = Math.ceil(Math.random() * 100 + 1);
-  let tryNumber = 10;
+const gameStart = function (number, tryNumber) {
+  const playAgain = function (str) {
+    if (confirm(str + " Хотите сыграть еще?")) {
+      gameStart(generateNumber(), 10)("Угадай число от 1 до 100");
+    }
+  };
 
   const game = function (str) {
     if (tryNumber === 0) {
@@ -35,6 +36,12 @@ const gameStart = function () {
     }
 
     userNumber = +userNumber;
+
+    if (!Number.isInteger(userNumber)) {
+      game("Введи целое число!");
+      return;
+    }
+
     tryNumber--;
 
     if (userNumber === number) {
@@ -46,7 +53,8 @@ const gameStart = function () {
     }
   };
 
-  game("Угадай число от 1 до 100");
+  return game;
 };
 
-gameStart();
+let newGame = gameStart(generateNumber(), 10);
+newGame("Угадай число от 1 до 100");
