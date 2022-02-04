@@ -4,9 +4,7 @@ const isNumber = function (num) {
   return !isNaN(parseInt(num)) && isFinite(num) && num !== "";
 };
 
-const gameStart = function () {
-  let number = Math.ceil(Math.random() * 100 + 1);
-
+const gameStart = function (number) {
   const game = function (str) {
     let userNumber = prompt(str);
 
@@ -43,5 +41,6 @@ const gameStart = function () {
   };
 };
 
-let newGame = gameStart();
+let generatedNumber = Math.ceil(Math.random() * 100 + 1);
+let newGame = gameStart(generatedNumber);
 newGame("Угадай число от 1 до 100");
